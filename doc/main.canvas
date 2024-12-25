@@ -1,0 +1,15 @@
+{
+	"nodes":[
+		{"id":"8cfcdcf96d88a8a2","x":-560,"y":-560,"width":740,"height":400,"type":"text","text":"# MINT SYSTEM"},
+		{"id":"22e7fe19b9fab0b9","x":-461,"y":620,"width":543,"height":315,"type":"text","text":"# MMOD\n---\n> Modular package / system manager. Allows to create separated packages, connected by standartalone API\n\n"},
+		{"id":"1989f6852fbb02d8","x":-1180,"y":560,"width":540,"height":340,"type":"text","text":"# Basic terms\n---\n- **mmod** - mint modular system\n- **mmodule** - *\"mint module\"*. atomic part of mmod system\n- **mmc** - *\"mmod connections\"*. API for connections between mmodules "},
+		{"id":"16d041886569e9fe","x":-600,"y":1280,"width":655,"height":900,"type":"text","text":"# MMC API\n---\n> API for creating & managing connections between mmodules\n\n# Transfering data\n---\nMMC will create a layer of abstraction on top of mmodule. The idea is to make possible to change parts of the system without breaking it.\n#### In example:\nWe have some Bluetooth mmodule `Bluetooth-1` what can handle bluetooth headphones.\nHeadphones have buttons for lowering/raising volume. To handle them, our `Bluetooth-1` needs to connect to audio mmodule. But different audio modules will provide different functionality to change the volume:\n```\n[Audio-1]\nchangeVolume(audioDevice_t device, int volume);\n\n[Audio-2]\nlowerVolume(audioDevicesContext_t context, int volume);\nraiseVolume(audioDevicesContext_t context, int volume);\n```\nSo, our `Bluetooth-1` needs code for handling both of audio modules. Our example isn't perfect, but it describes, **why standards should be set.**"},
+		{"id":"552fdccb4a8ed630","x":-1513,"y":1294,"width":603,"height":436,"type":"text","text":"# MMC API Logic\n---\n> In current version, MMC uses `pipe` syscall available on unix systems\n> `pipe` will allow you to transfer data from one application to another\n\n```c\n// Creating pipe\nint our_pipe[2];\npipe(our_pipe);\n```\n"}
+	],
+	"edges":[
+		{"id":"91e4e7a43d228948","fromNode":"8cfcdcf96d88a8a2","fromSide":"bottom","toNode":"22e7fe19b9fab0b9","toSide":"top"},
+		{"id":"ced068d194e04bde","fromNode":"22e7fe19b9fab0b9","fromSide":"bottom","toNode":"16d041886569e9fe","toSide":"top"},
+		{"id":"433683daade99429","fromNode":"22e7fe19b9fab0b9","fromSide":"left","toNode":"1989f6852fbb02d8","toSide":"right"},
+		{"id":"42c97aaf5b474484","fromNode":"16d041886569e9fe","fromSide":"left","toNode":"552fdccb4a8ed630","toSide":"right"}
+	]
+}
